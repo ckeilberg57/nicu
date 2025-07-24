@@ -4,46 +4,56 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>NICU Appointment Booking</title>
-  <link rel="stylesheet" href="styles/mainStyle.css">
+  <link rel="stylesheet" href="styles/mainStyle.css" />
 </head>
 <body>
   <div class="top-section">
     <div class="left">
       <h2>Current NICU Appointments</h2>
       <ul id="appointmentList">
-        <li data-room="N401">
-          Room N401 - Jane Doe - MRN: 123456
-          <button onclick="toggleVideoBox('N401')">View Meeting</button>
-          <div class="video-box" id="video-N401" style="display: none;">
-            <p>Video session details for Room N401.</p>
+        <li class="appointment-item" data-room="N401">
+          <span class="appointment-info">Room N401 - Jane Doe - MRN: 123456</span>
+          <div class="view-container">
+            <button class="view-button" onclick="toggleVideoBox('N401')">View Meeting</button>
+            <div class="video-box" id="video-N401" style="display: none;">
+              <p>Video session details for Room N401.</p>
+            </div>
           </div>
         </li>
-        <li data-room="N402">
-          Room N402 - John Smith - MRN: 654321
-          <button onclick="toggleVideoBox('N402')">View Meeting</button>
-          <div class="video-box" id="video-N402" style="display: none;">
-            <p>Video session details for Room N402.</p>
+        <li class="appointment-item" data-room="N402">
+          <span class="appointment-info">Room N402 - John Smith - MRN: 654321</span>
+          <div class="view-container">
+            <button class="view-button" onclick="toggleVideoBox('N402')">View Meeting</button>
+            <div class="video-box" id="video-N402" style="display: none;">
+              <p>Video session details for Room N402.</p>
+            </div>
           </div>
         </li>
-        <li data-room="N403">
-          Room N403 - Alice Johnson - MRN: 112233
-          <button onclick="toggleVideoBox('N403')">View Meeting</button>
-          <div class="video-box" id="video-N403" style="display: none;">
-            <p>Video session details for Room N403.</p>
+        <li class="appointment-item" data-room="N403">
+          <span class="appointment-info">Room N403 - Alice Johnson - MRN: 112233</span>
+          <div class="view-container">
+            <button class="view-button" onclick="toggleVideoBox('N403')">View Meeting</button>
+            <div class="video-box" id="video-N403" style="display: none;">
+              <p>Video session details for Room N403.</p>
+            </div>
           </div>
         </li>
-        <li data-room="N404">
-          Room N404 - Bob Brown - MRN: 445566
-          <button onclick="toggleVideoBox('N404')">View Meeting</button>
-          <div class="video-box" id="video-N404" style="display: none;">
-            <p>Video session details for Room N404.</p>
+        <li class="appointment-item" data-room="N404">
+          <span class="appointment-info">Room N404 - Bob Brown - MRN: 445566</span>
+          <div class="view-container">
+            <button class="view-button" onclick="toggleVideoBox('N404')">View Meeting</button>
+            <div class="video-box" id="video-N404" style="display: none;">
+              <p>Video session details for Room N404.</p>
+            </div>
           </div>
         </li>
-        <li data-room="N405">
-          Room N405 - Carol White - MRN: 778899
-          <button onclick="toggleVideoBox('N405')">View Meeting</button>
-          <div class="video-box" id="video-N405" style="display: none;">
-            <p>Video session details for Room N405.</p>
+        <li class="appointment-item" data-room="N405">
+          <span class="appointment-info">Room N405 - Carol White - MRN: 778899</span>
+          <div class="view-container">
+            <button class="view-button" onclick="toggleVideoBox('N405')">View Meeting</button>
+            <div class="video-box" id="video-N405" style="display: none;">
+              <p>Video session details for Room N405.</p>
+            </div>
           </div>
         </li>
       </ul>
@@ -83,7 +93,12 @@
     const roomSelect = document.getElementById('room');
     const mrnField = document.getElementById('mrn');
 
-    // Populate available room options (N401–N430) excluding used rooms
+    // Generate MRN on page load
+    window.addEventListener('load', () => {
+      mrnField.value = generateMRN();
+    });
+
+    // Populate dropdown with available rooms
     const usedRooms = [...appointmentList.querySelectorAll('li')].map(li => li.getAttribute('data-room'));
     for (let i = 401; i <= 430; i++) {
       const roomLabel = `N${i}`;
@@ -95,29 +110,27 @@
       }
     }
 
-    // Generate random MRN
     function generateMRN() {
       return Math.floor(100000 + Math.random() * 900000).toString();
     }
 
-    // Update MRN when form loads
-    window.addEventListener('load', () => {
-      mrnField.value = generateMRN();
-    });
-
     form.addEventListener('submit', function(e) {
       e.preventDefault();
+
       const room = roomSelect.value;
       const patient = document.getElementById('patientName').value;
       const mrn = mrnField.value;
 
       const newItem = document.createElement('li');
+      newItem.className = 'appointment-item';
       newItem.setAttribute('data-room', room);
       newItem.innerHTML = `
-        Room ${room} - ${patient} - MRN: ${mrn}
-        <button onclick="toggleVideoBox('${room}')">View Meeting</button>
-        <div class="video-box" id="video-${room}" style="display: none;">
-          <p>Video session details for Room ${room}.</p>
+        <span class="appointment-info">Room ${room} - ${patient} - MRN: ${mrn}</span>
+        <div class="view-container">
+          <button class="view-button" onclick="toggleVideoBox('${room}')">View Meeting</button>
+          <div class="video-box" id="video-${room}" style="display: none;">
+            <p>Video session details for Room ${room}.</p>
+          </div>
         </div>
       `;
 
@@ -127,10 +140,7 @@
       appointmentList.innerHTML = '';
       items.forEach(item => appointmentList.appendChild(item));
 
-      // Remove selected room from dropdown
-      roomSelect.querySelector(`option[value=\"${room}\"]`).remove();
-
-      // Reset form and regenerate MRN
+      roomSelect.querySelector(`option[value="${room}"]`).remove();
       form.reset();
       mrnField.value = generateMRN();
     });
