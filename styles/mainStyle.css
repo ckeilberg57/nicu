@@ -4,32 +4,83 @@ body {
   background-color: #f4f6f8;
   margin: 0;
   padding: 20px;
+  flex-direction: column;
 }
+
+.top-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  width: 100%;
+}
+
 .left, .right {
   padding: 20px;
   background: white;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
+
 .left {
-  width: 40%;
-  margin-right: 20px;
+  width: 50%;
 }
+
 .right {
-  width: 60%;
+  width: 50%;
 }
+
 h2 {
   margin-top: 0;
 }
+
 ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
-li {
-  margin: 10px 0;
+
+.appointment-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 10px 0;
   border-bottom: 1px solid #ddd;
-  padding-bottom: 5px;
+  gap: 10px;
 }
+
+.appointment-info {
+  flex-grow: 1;
+  font-size: 16px;
+}
+
+.view-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  min-width: 160px;
+}
+
+.view-button {
+  background-color: #0eb3c7;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 6px 12px;
+  cursor: pointer;
+  margin-bottom: 5px;
+}
+
+.video-box {
+  margin-top: 5px;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  max-width: 300px;
+}
+
 input, select {
   width: 100%;
   margin-bottom: 10px;
@@ -37,27 +88,12 @@ input, select {
   border-radius: 5px;
   border: 1px solid #ccc;
 }
-button {
+
+button[type=\"submit\"] {
   padding: 10px 15px;
-  border: none;
   background-color: #0eb3c7;
   color: white;
+  border: none;
   border-radius: 5px;
   cursor: pointer;
-}
-#appointmentList button {
-  margin-left: 10px;
-}
-.top-section {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-.video-box {
-  margin-top: 15px;
-  padding: 15px;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-  border: 1px solid #ccc;
-  font-size: 14px;
 }
