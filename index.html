@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NICU Appointment Booking</title>
+  <link rel="stylesheet" href="styles/mainStyle.css">
+</head>
+<body>
+  <div class="left">
+    <h2>Current NICU Appointments</h2>
+    <ul id="appointmentList">
+      <li data-room="101">Room 101 - Jane Doe - MRN: 123456</li>
+      <li data-room="102">Room 102 - John Smith - MRN: 654321</li>
+      <li data-room="103">Room 103 - Alice Johnson - MRN: 112233</li>
+      <li data-room="104">Room 104 - Bob Brown - MRN: 445566</li>
+      <li data-room="105">Room 105 - Carol White - MRN: 778899</li>
+    </ul>
+  </div>
+
+  <div class="right">
+    <h2>Book New NICU Appointment</h2>
+    <form id="appointmentForm">
+      <label for="room">Room Number</label>
+      <select id="room" required></select>
+      <input type="text" placeholder="Patient Name" id="patientName" required />
+      <input type="text" placeholder="MRN (Auto-generated)" id="mrn" readonly />
+      <input type="text" placeholder="Parent 1 Name" id="parent1Name" required />
+      <input type="text" placeholder="Parent 1 Phone" id="parent1Phone" required />
+      <input type="text" placeholder="Parent 2 Name (Optional)" id="parent2Name" />
+      <input type="text" placeholder="Parent 2 Phone (Optional)" id="parent2Phone" />
+      <label>Available Visit Days:</label>
+      <select id="days" multiple>
+        <option>Monday</option>
+        <option>Tuesday</option>
+        <option>Wednesday</option>
+        <option>Thursday</option>
+        <option>Friday</option>
+        <option>Saturday</option>
+        <option>Sunday</option>
+      </select>
+      <label>Available Visit Hours:</label>
+      <input type="text" placeholder="e.g. 2pm - 4pm" id="hours" />
+      <button type="submit">Add Appointment</button>
+    </form>
+
+    <br>
+    <button onclick="toggleVideoBox()">View Current Video Meeting in Progress</button>
+    <div class="video-box" id="videoBox">
+      <!-- Logic will populate this -->
+      <p>Current video meeting details will appear here.</p>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('appointmentForm');
+    const appointmentList = document.getElementById('appointmentList');
+    const roomSelect = document.getElementById('room');
+    const mrnField = document.getElementById('mrn');
+
+    // Populate available room options (N401–N430) excluding used rooms
+    const usedRooms = [...appointmentList.querySelectorAll('li')].map(li => li.getAttribute('data-room'));
+    for (let i = 401; i <= 430; i++) {
+      const roomLabel = `N${i}`;
+      if (!usedRooms.includes(roomLabel)) {
+        const opt = document.createElement('option');
+        opt.value = roomLabel;
+        opt.textContent = roomLabel;
+        roomSelect.appendChild(opt);
+      }
+    }
+
+    // Generate random MRN
+    function generateMRN() {
+      return Math.floor(100000 + Math.random() * 900000).toString();
+    }
+
+    // Update MRN when form loads
+    window.addEventListener('load', () => {
+      mrnField.value = generateMRN();
+    });
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const room = roomSelect.value;
+      const patient = document.getElementById('patientName').value;
+      const mrn = mrnField.value;
+
+      const newItem = document.createElement('li');
+      newItem.textContent = `Room ${room} - ${patient} - MRN: ${mrn}`;
+      newItem.setAttribute('data-room', room);
+
+      const items = [...appointmentList.querySelectorAll('li')];
+      items.push(newItem);
+      items.sort((a, b) => parseInt(a.dataset.room.replace(/\D/g, '')) - parseInt(b.dataset.room.replace(/\D/g, '')));
+      appointmentList.innerHTML = '';
+      items.forEach(item => appointmentList.appendChild(item));
+
+      // Remove selected room from dropdown
+      roomSelect.querySelector(`option[value="${room}"]`).remove();
+
+      // Reset form and regenerate MRN
+      form.reset();
+      mrnField.value = generateMRN();
+    });
+
+    function toggleVideoBox() {
+      const box = document.getElementById('videoBox');
+      box.style.display = box.style.display === 'none' ? 'block' : 'none';
+    }
+  </script>
+</body>
+</html>
