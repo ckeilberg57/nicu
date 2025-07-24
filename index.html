@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NICU Appointment Booking</title>
+  <title>NICU Booking/Viewing Page</title>
   <link rel="stylesheet" href="styles/mainStyle.css" />
 </head>
 <body>
   <div class="top-section">
     <div class="left">
-      <h2>Current NICU Appointments</h2>
+      <h2>Current NICU Patients</h2>
       <ul id="appointmentList">
         <li class="appointment-item" data-room="N401">
           <span class="appointment-info">Room N401 - Jane Doe - MRN: 123456</span>
@@ -60,7 +60,7 @@
     </div>
 
     <div class="right">
-      <h2>Book New NICU Appointment</h2>
+      <h2>Add New NICU Patient</h2>
       <form id="appointmentForm">
         <label for="room">Room Number</label>
         <select id="room" required></select>
@@ -82,7 +82,7 @@
         </select>
         <label>Available Visit Hours:</label>
         <input type="text" placeholder="e.g. 2pm - 4pm" id="hours" />
-        <button type="submit">Add Appointment</button>
+        <button type="submit">Add Patient</button>
       </form>
     </div>
   </div>
@@ -136,7 +136,7 @@
 
       const items = [...appointmentList.querySelectorAll('li')];
       items.push(newItem);
-      items.sort((a, b) => parseInt(a.dataset.room.replace(/\\D/g, '')) - parseInt(b.dataset.room.replace(/\\D/g, '')));
+      items.sort((a, b) => parseInt(a.dataset.room.replace(/\D/g, '')) - parseInt(b.dataset.room.replace(/\D/g, '')));
       appointmentList.innerHTML = '';
       items.forEach(item => appointmentList.appendChild(item));
 
