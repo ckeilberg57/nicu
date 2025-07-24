@@ -45,10 +45,34 @@
       border-radius: 5px;
       cursor: pointer;
     }
-    .video-box {
-      margin-top: 20px;
+    .top-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .video-controls {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      margin-left: 20px;
+      max-width: 300px;
+    }
+    .video-controls button {
+      width: 100%;
+      font-size: 16px;
+      background-color: #0eb3c7;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
       padding: 10px;
-      border: 1px dashed #aaa;
-      background: #f0f0f0;
-      display: none;
+      cursor: pointer;
+    }
+    .video-box {
+      margin-top: 15px;
+      padding: 15px;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+      border: 1px solid #ccc;
+      font-size: 14px;
     }
