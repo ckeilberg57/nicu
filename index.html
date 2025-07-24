@@ -11,48 +11,70 @@
     <div class="left">
       <h2>Current NICU Appointments</h2>
       <ul id="appointmentList">
-        <li data-room="101">Room 101 - Jane Doe - MRN: 123456</li>
-        <li data-room="102">Room 102 - John Smith - MRN: 654321</li>
-        <li data-room="103">Room 103 - Alice Johnson - MRN: 112233</li>
-        <li data-room="104">Room 104 - Bob Brown - MRN: 445566</li>
-        <li data-room="105">Room 105 - Carol White - MRN: 778899</li>
+        <li data-room="N401">
+          Room N401 - Jane Doe - MRN: 123456
+          <button onclick="toggleVideoBox('N401')">View Meeting</button>
+          <div class="video-box" id="video-N401" style="display: none;">
+            <p>Video session details for Room N401.</p>
+          </div>
+        </li>
+        <li data-room="N402">
+          Room N402 - John Smith - MRN: 654321
+          <button onclick="toggleVideoBox('N402')">View Meeting</button>
+          <div class="video-box" id="video-N402" style="display: none;">
+            <p>Video session details for Room N402.</p>
+          </div>
+        </li>
+        <li data-room="N403">
+          Room N403 - Alice Johnson - MRN: 112233
+          <button onclick="toggleVideoBox('N403')">View Meeting</button>
+          <div class="video-box" id="video-N403" style="display: none;">
+            <p>Video session details for Room N403.</p>
+          </div>
+        </li>
+        <li data-room="N404">
+          Room N404 - Bob Brown - MRN: 445566
+          <button onclick="toggleVideoBox('N404')">View Meeting</button>
+          <div class="video-box" id="video-N404" style="display: none;">
+            <p>Video session details for Room N404.</p>
+          </div>
+        </li>
+        <li data-room="N405">
+          Room N405 - Carol White - MRN: 778899
+          <button onclick="toggleVideoBox('N405')">View Meeting</button>
+          <div class="video-box" id="video-N405" style="display: none;">
+            <p>Video session details for Room N405.</p>
+          </div>
+        </li>
       </ul>
     </div>
 
-    <div class="video-controls">
-      <button onclick="toggleVideoBox()">View Current Video Meeting in Progress</button>
-      <div class="video-box" id="videoBox" style="display: none;">
-        <!-- Logic will populate this -->
-        <p>Current video meeting details will appear here.</p>
-      </div>
+    <div class="right">
+      <h2>Book New NICU Appointment</h2>
+      <form id="appointmentForm">
+        <label for="room">Room Number</label>
+        <select id="room" required></select>
+        <input type="text" placeholder="Patient Name" id="patientName" required />
+        <input type="text" placeholder="MRN (Auto-generated)" id="mrn" readonly />
+        <input type="text" placeholder="Parent 1 Name" id="parent1Name" required />
+        <input type="text" placeholder="Parent 1 Phone" id="parent1Phone" required />
+        <input type="text" placeholder="Parent 2 Name (Optional)" id="parent2Name" />
+        <input type="text" placeholder="Parent 2 Phone (Optional)" id="parent2Phone" />
+        <label>Available Visit Days:</label>
+        <select id="days" multiple>
+          <option>Monday</option>
+          <option>Tuesday</option>
+          <option>Wednesday</option>
+          <option>Thursday</option>
+          <option>Friday</option>
+          <option>Saturday</option>
+          <option>Sunday</option>
+        </select>
+        <label>Available Visit Hours:</label>
+        <input type="text" placeholder="e.g. 2pm - 4pm" id="hours" />
+        <button type="submit">Add Appointment</button>
+      </form>
     </div>
-  </div>
-
-  <div class="right">
-    <h2>Book New NICU Appointment</h2>
-    <form id="appointmentForm">
-      <label for="room">Room Number</label>
-      <select id="room" required></select>
-      <input type="text" placeholder="Patient Name" id="patientName" required />
-      <input type="text" placeholder="MRN (Auto-generated)" id="mrn" readonly />
-      <input type="text" placeholder="Parent 1 Name" id="parent1Name" required />
-      <input type="text" placeholder="Parent 1 Phone" id="parent1Phone" required />
-      <input type="text" placeholder="Parent 2 Name (Optional)" id="parent2Name" />
-      <input type="text" placeholder="Parent 2 Phone (Optional)" id="parent2Phone" />
-      <label>Available Visit Days:</label>
-      <select id="days" multiple>
-        <option>Monday</option>
-        <option>Tuesday</option>
-        <option>Wednesday</option>
-        <option>Thursday</option>
-        <option>Friday</option>
-        <option>Saturday</option>
-        <option>Sunday</option>
-      </select>
-      <label>Available Visit Hours:</label>
-      <input type="text" placeholder="e.g. 2pm - 4pm" id="hours" />
-      <button type="submit">Add Appointment</button>
-    </form>
   </div>
 
   <script>
@@ -90,25 +112,31 @@
       const mrn = mrnField.value;
 
       const newItem = document.createElement('li');
-      newItem.textContent = `Room ${room} - ${patient} - MRN: ${mrn}`;
       newItem.setAttribute('data-room', room);
+      newItem.innerHTML = `
+        Room ${room} - ${patient} - MRN: ${mrn}
+        <button onclick="toggleVideoBox('${room}')">View Meeting</button>
+        <div class="video-box" id="video-${room}" style="display: none;">
+          <p>Video session details for Room ${room}.</p>
+        </div>
+      `;
 
       const items = [...appointmentList.querySelectorAll('li')];
       items.push(newItem);
-      items.sort((a, b) => parseInt(a.dataset.room.replace(/\D/g, '')) - parseInt(b.dataset.room.replace(/\D/g, '')));
+      items.sort((a, b) => parseInt(a.dataset.room.replace(/\\D/g, '')) - parseInt(b.dataset.room.replace(/\\D/g, '')));
       appointmentList.innerHTML = '';
       items.forEach(item => appointmentList.appendChild(item));
 
       // Remove selected room from dropdown
-      roomSelect.querySelector(`option[value="${room}"]`).remove();
+      roomSelect.querySelector(`option[value=\"${room}\"]`).remove();
 
       // Reset form and regenerate MRN
       form.reset();
       mrnField.value = generateMRN();
     });
 
-    function toggleVideoBox() {
-      const box = document.getElementById('videoBox');
+    function toggleVideoBox(roomId) {
+      const box = document.getElementById(`video-${roomId}`);
       box.style.display = box.style.display === 'none' ? 'block' : 'none';
     }
   </script>
