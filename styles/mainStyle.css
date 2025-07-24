@@ -97,3 +97,107 @@ button[type=\"submit\"] {
   border-radius: 5px;
   cursor: pointer;
 }
+
+/* container now expands wide */
+#app {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 90vw;
+  max-width: 800px;
+  text-align: center;
+}
+
+/* video container hidden by default */
+#videoContainer {
+  display: none;
+  margin-top: 1.5rem;
+}
+
+/* 16:9 wrapper */
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 */
+  background: #000;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+/* remote fills container */
+#remoteVideo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* local small self-view overlay */
+#localVideo {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 25%;
+  height: auto;
+  border: 2px solid #fff;
+  border-radius: 4px;
+}
+
+/* controls row */
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/* control buttons */
+.control-btn {
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 8px;
+  background-color: #0078d7;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 60%;
+  cursor: pointer;
+  transition: background-color .2s;
+}
+
+/* disabled look */
+.control-btn:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+}
+
+/* Video on/off */
+.btn-video.on {
+  background-image: url('https://unpkg.com/feather-icons/dist/icons/video.svg');
+}
+.btn-video.off {
+  background-image: url('https://unpkg.com/feather-icons/dist/icons/video-off.svg');
+}
+
+/* Mic on/off */
+.btn-mic.on {
+  background-image: url('https://unpkg.com/feather-icons/dist/icons/mic.svg');
+}
+.btn-mic.off {
+  background-image: url('https://unpkg.com/feather-icons/dist/icons/mic-off.svg');
+}
+
+/* Speaker on/off */
+.btn-speaker.on {
+  background-image: url('https://unpkg.com/feather-icons/dist/icons/volume-2.svg');
+}
+.btn-speaker.off {
+  background-image: url('https://unpkg.com/feather-icons/dist/icons/volume-x.svg');
+}
+
+/* End call (static) */
+.btn-end {
+  background-image: url('https://unpkg.com/feather-icons/dist/icons/phone-off.svg');
+}
