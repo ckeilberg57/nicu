@@ -7,15 +7,25 @@
   <link rel="stylesheet" href="styles/mainStyle.css">
 </head>
 <body>
-  <div class="left">
-    <h2>Current NICU Appointments</h2>
-    <ul id="appointmentList">
-      <li data-room="101">Room 101 - Jane Doe - MRN: 123456</li>
-      <li data-room="102">Room 102 - John Smith - MRN: 654321</li>
-      <li data-room="103">Room 103 - Alice Johnson - MRN: 112233</li>
-      <li data-room="104">Room 104 - Bob Brown - MRN: 445566</li>
-      <li data-room="105">Room 105 - Carol White - MRN: 778899</li>
-    </ul>
+  <div class="top-section">
+    <div class="left">
+      <h2>Current NICU Appointments</h2>
+      <ul id="appointmentList">
+        <li data-room="101">Room 101 - Jane Doe - MRN: 123456</li>
+        <li data-room="102">Room 102 - John Smith - MRN: 654321</li>
+        <li data-room="103">Room 103 - Alice Johnson - MRN: 112233</li>
+        <li data-room="104">Room 104 - Bob Brown - MRN: 445566</li>
+        <li data-room="105">Room 105 - Carol White - MRN: 778899</li>
+      </ul>
+    </div>
+
+    <div class="video-controls">
+      <button onclick="toggleVideoBox()">View Current Video Meeting in Progress</button>
+      <div class="video-box" id="videoBox" style="display: none;">
+        <!-- Logic will populate this -->
+        <p>Current video meeting details will appear here.</p>
+      </div>
+    </div>
   </div>
 
   <div class="right">
@@ -43,13 +53,6 @@
       <input type="text" placeholder="e.g. 2pm - 4pm" id="hours" />
       <button type="submit">Add Appointment</button>
     </form>
-
-    <br>
-    <button onclick="toggleVideoBox()">View Current Video Meeting in Progress</button>
-    <div class="video-box" id="videoBox">
-      <!-- Logic will populate this -->
-      <p>Current video meeting details will appear here.</p>
-    </div>
   </div>
 
   <script>
