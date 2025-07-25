@@ -79,10 +79,7 @@ async function startConference(displayName) {
 
   rtc.onDisconnect = reason => {
     console.log('[rtc.onDisconnect] Call disconnected. Reason:', reason);
-    setTimeout(() => {
-      console.log('[rtc.onDisconnect] Calling resetUI()...');
-      resetUI();
-    }, 200);
+    resetUI();
   };
 
   try {
@@ -100,6 +97,12 @@ endBtn.addEventListener('click', () => {
   if (rtc) {
     console.log('[endBtn] Calling rtc.disconnect()...');
     rtc.disconnect();
+
+    // 🔁 Fallback: force UI reset after 1 second if onDisconnect fails
+    setTimeout(() => {
+      console.log('[endBtn] Fallback resetUI after 1 second...');
+      resetUI();
+    }, 1000);
   } else {
     console.log('[endBtn] No RTC session, calling resetUI() directly...');
     resetUI();
