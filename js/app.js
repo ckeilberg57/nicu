@@ -79,7 +79,7 @@ async function startConference(displayName) {
 
   rtc.onDisconnect = reason => {
     console.log('Disconnected:', reason);
-    resetUI();
+    setTimeout(resetUI, 200);
   };
 
   try {
@@ -103,29 +103,41 @@ endBtn.addEventListener('click', () => {
 function resetUI() {
   // Stop and clear local video
   if (localVid && localVid.srcObject) {
-    localVid.srcObject.getTracks().forEach(track => track.stop());
+    localVid.srcObject.getTracks().forEach(track => {
+      track.stop();
+    });
     localVid.srcObject = null;
   }
 
   // Stop and clear remote video
   if (remoteVid && remoteVid.srcObject) {
-    remoteVid.srcObject.getTracks().forEach(track => track.stop());
+    remoteVid.srcObject.getTracks().forEach(track => {
+      track.stop();
+    });
     remoteVid.srcObject = null;
   }
 
-  // Hide the entire container + internal sections
-  videoDiv.style.display = 'none';  // <== THIS FIXES IT
+  // Hide video display elements
   const wrapper = document.querySelector('.video-wrapper');
   const controls = document.querySelector('.controls');
-  if (wrapper) wrapper.style.display = 'none';
-  if (controls) controls.style.display = 'none';
+  if (wrapper) wrapper.style.setProperty('display', 'none', 'important');
+  if (controls) controls.style.setProperty('display', 'none', 'important');
 
-  // Show "Nothing is currently being observed"
+  // Show the "noObservation" message clearly
   const noObsBox = document.getElementById('noObservation');
-  if (noObsBox) noObsBox.style.display = 'block';
+  if (noObsBox) noObsBox.style.setProperty('display', 'block', 'important');
 
-  // Hide all open video-boxes
+  // Also try blanking the video tags visually (forces repaint)
+  remoteVid.srcObject = null;
+  remoteVid.load();
+  localVid.srcObject = null;
+  localVid.load();
+
+  // Hide any open "video-box" overlays under patients
   document.querySelectorAll('.video-box').forEach(box => {
-    box.style.display = 'none';
+    box.style.setProperty('display', 'none', 'important');
   });
+
+  // Optionally force reflow to repaint
+  document.body.offsetHeight; // trigger reflow
 }
