@@ -101,28 +101,33 @@ endBtn.addEventListener('click', () => {
 });
 
 function resetUI() {
-  // Hide video content and controls
-  const wrapper = document.querySelector('.video-wrapper');
-  const controls = document.querySelector('.controls');
-  const noObsBox = document.getElementById('noObservation');
-
-  if (wrapper) wrapper.style.display = 'none';
-  if (controls) controls.style.display = 'none';
-  if (noObsBox) noObsBox.style.display = 'block';
-
-  // Clear video streams if needed
-  if (remoteVid && remoteVid.srcObject) {
-    remoteVid.srcObject.getTracks().forEach(track => track.stop());
-    remoteVid.srcObject = null;
-  }
+  // Stop and clear local video
   if (localVid && localVid.srcObject) {
     localVid.srcObject.getTracks().forEach(track => track.stop());
     localVid.srcObject = null;
   }
 
-  // Optionally hide any expanded video boxes from View Meeting
+  // Stop and clear remote video
+  if (remoteVid && remoteVid.srcObject) {
+    remoteVid.srcObject.getTracks().forEach(track => track.stop());
+    remoteVid.srcObject = null;
+  }
+
+  // Hide the live video wrapper and controls
+  const wrapper = document.querySelector('.video-wrapper');
+  const controls = document.querySelector('.controls');
+  if (wrapper) wrapper.style.display = 'none';
+  if (controls) controls.style.display = 'none';
+
+  // Show the noObservation message
+  const noObsBox = document.getElementById('noObservation');
+  if (noObsBox) noObsBox.style.display = 'block';
+
+  // Hide any open video boxes under patients
   document.querySelectorAll('.video-box').forEach(box => {
     box.style.display = 'none';
   });
-}
 
+  // OPTIONAL: Scroll back to top or focus to patient list
+  // window.scrollTo({ top: 0, behavior: 'smooth' });
+}
