@@ -221,3 +221,26 @@ button[type=\"submit\"] {
   cursor: pointer;
   margin-top: 5px;
 }
+
+/* SMS section */
+  .sms-box {
+    display: none;
+    margin-top: 10px;
+    background: #f9f9f9;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  .sms-box input[type="text"] {
+    width: calc(100% - 120px);
+    margin-right: 5px;
+  }
+  .sms-link {
+    display: inline-block;
+    margin-top: 5px;
+    background-color: #0eb3c7;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+  }
