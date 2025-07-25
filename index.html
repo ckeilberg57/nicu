@@ -16,6 +16,7 @@
           <span class="appointment-info">Room N401 - Jane Doe - MRN: 123456</span>
           <div class="view-container">
             <button class="view-button" onclick="toggleVideoBox('N401')">View Meeting</button>
+            <button class="remove-button" onclick="removePatient(this)">Remove</button>
             <div class="video-box" id="video-N401" style="display: none;">
               <p>Video session details for Room N401.</p>
             </div>
@@ -25,6 +26,7 @@
           <span class="appointment-info">Room N402 - John Smith - MRN: 654321</span>
           <div class="view-container">
             <button class="view-button" onclick="toggleVideoBox('N402')">View Meeting</button>
+            <button class="remove-button" onclick="removePatient(this)">Remove</button>
             <div class="video-box" id="video-N402" style="display: none;">
               <p>Video session details for Room N402.</p>
             </div>
@@ -34,6 +36,7 @@
           <span class="appointment-info">Room N403 - Alice Johnson - MRN: 112233</span>
           <div class="view-container">
             <button class="view-button" onclick="toggleVideoBox('N403')">View Meeting</button>
+            <button class="remove-button" onclick="removePatient(this)">Remove</button>
             <div class="video-box" id="video-N403" style="display: none;">
               <p>Video session details for Room N403.</p>
             </div>
@@ -43,6 +46,7 @@
           <span class="appointment-info">Room N404 - Bob Brown - MRN: 445566</span>
           <div class="view-container">
             <button class="view-button" onclick="toggleVideoBox('N404')">View Meeting</button>
+            <button class="remove-button" onclick="removePatient(this)">Remove</button>
             <div class="video-box" id="video-N404" style="display: none;">
               <p>Video session details for Room N404.</p>
             </div>
@@ -52,6 +56,7 @@
           <span class="appointment-info">Room N405 - Carol White - MRN: 778899</span>
           <div class="view-container">
             <button class="view-button" onclick="toggleVideoBox('N405')">View Meeting</button>
+            <button class="remove-button" onclick="removePatient(this)">Remove</button>
             <div class="video-box" id="video-N405" style="display: none;">
               <p>Video session details for Room N405.</p>
             </div>
@@ -159,6 +164,33 @@
       document.querySelector('.video-wrapper').style.display = 'flex';
       document.querySelector('.controls').style.display = 'flex';
     }
+
+    function removePatient(button) {
+      const listItem = button.closest('.appointment-item');
+      if (listItem) {
+        const room = listItem.getAttribute('data-room');
+    
+        // Confirm if call is active on that alias
+        if (currentAlias && currentAlias.includes(room)) {
+          alert('You must end the active video call before removing this patient.');
+          return;
+        }
+    
+        listItem.remove();
+    
+        // Optionally, re-enable this room in the dropdown
+        const roomSelect = document.getElementById('room');
+        if (roomSelect) {
+          const opt = document.createElement('option');
+          opt.value = room;
+          opt.textContent = room;
+          roomSelect.appendChild(opt);
+        }
+    
+        console.log(`Removed patient observation for room ${room}`);
+      }
+    }
+
   </script>
   <!-- PexRTC library + your app logic -->
   <script src="https://cklab-edges.ck-collab-engtest.com/static/webrtc/js/pexrtc.js"></script>
