@@ -138,6 +138,7 @@
         <span class="appointment-info">Room ${room} - ${patient} - MRN: ${mrn}</span>
         <div class="view-container">
           <button class="view-button" onclick="toggleVideoBox('${room}')">View Meeting</button>
+          <button class="remove-button" onclick="removePatient(this)">Remove</button>
           <div class="video-box" id="video-${room}" style="display: none;">
             <p>Video session details for Room ${room}.</p>
           </div>
