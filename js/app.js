@@ -113,21 +113,19 @@ function resetUI() {
     remoteVid.srcObject = null;
   }
 
-  // Hide the live video wrapper and controls
+  // Hide the entire container + internal sections
+  videoDiv.style.display = 'none';  // <== THIS FIXES IT
   const wrapper = document.querySelector('.video-wrapper');
   const controls = document.querySelector('.controls');
   if (wrapper) wrapper.style.display = 'none';
   if (controls) controls.style.display = 'none';
 
-  // Show the noObservation message
+  // Show "Nothing is currently being observed"
   const noObsBox = document.getElementById('noObservation');
   if (noObsBox) noObsBox.style.display = 'block';
 
-  // Hide any open video boxes under patients
+  // Hide all open video-boxes
   document.querySelectorAll('.video-box').forEach(box => {
     box.style.display = 'none';
   });
-
-  // OPTIONAL: Scroll back to top or focus to patient list
-  // window.scrollTo({ top: 0, behavior: 'smooth' });
 }
