@@ -93,13 +93,36 @@ async function startConference(displayName) {
 }
 
 endBtn.addEventListener('click', () => {
-  if (rtc) rtc.disconnect();
+  if (rtc) {
+    rtc.disconnect();
+  } else {
+    resetUI();
+  }
 });
 
 function resetUI() {
-  videoDiv.style.display = 'none';
-  endBtn.disabled = true;
-  document.querySelector('.video-wrapper').style.display = 'none';
-  document.querySelector('.controls').style.display = 'none';
-  document.getElementById('noObservation').style.display = 'block';
+  // Hide video content and controls
+  const wrapper = document.querySelector('.video-wrapper');
+  const controls = document.querySelector('.controls');
+  const noObsBox = document.getElementById('noObservation');
+
+  if (wrapper) wrapper.style.display = 'none';
+  if (controls) controls.style.display = 'none';
+  if (noObsBox) noObsBox.style.display = 'block';
+
+  // Clear video streams if needed
+  if (remoteVid && remoteVid.srcObject) {
+    remoteVid.srcObject.getTracks().forEach(track => track.stop());
+    remoteVid.srcObject = null;
+  }
+  if (localVid && localVid.srcObject) {
+    localVid.srcObject.getTracks().forEach(track => track.stop());
+    localVid.srcObject = null;
+  }
+
+  // Optionally hide any expanded video boxes from View Meeting
+  document.querySelectorAll('.video-box').forEach(box => {
+    box.style.display = 'none';
+  });
 }
+
