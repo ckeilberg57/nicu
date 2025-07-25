@@ -109,10 +109,20 @@ button[type=\"submit\"] {
   text-align: center;
 }
 
-/* video container hidden by default */
 #videoContainer {
-  display: none;
-  margin-top: 1.5rem;
+  margin-top: 30px;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#noObservation {
+  padding: 15px;
+  background: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 15px;
 }
 
 /* 16:9 wrapper */
