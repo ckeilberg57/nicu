@@ -8,6 +8,7 @@
 </head>
 <body>
   <div class="top-section">
+    <!-- LEFT side: patient list -->
     <div class="left">
       <h2>Current NICU Patients</h2>
       <ul id="appointmentList">
@@ -59,6 +60,7 @@
       </ul>
     </div>
 
+ <!-- RIGHT side: new patient form -->
     <div class="right">
       <h2>Add New NICU Patient</h2>
       <form id="appointmentForm">
@@ -87,33 +89,34 @@
     </div>
   </div>
 
-  <!-- Video & Controls -->
-    <div id="videoContainer">
-      <h3>Live Call</h3>
-      <div class="video-wrapper">
-        <video id="remoteVideo" autoplay playsinline></video>
-        <video id="localVideo" autoplay muted playsinline></video>
-      </div>
-      <div class="controls">
-        <button id="btnVideo" class="control-btn btn-video on" title="Toggle Video"></button>
-        <button id="btnMic" class="control-btn btn-mic on" title="Toggle Microphone"></button>
-        <button id="btnSpeaker" class="control-btn btn-speaker on" title="Toggle Speaker"></button>
-        <button id="endBtn" class="control-btn btn-end" title="End Call"></button>
-      </div>
+  <!-- Below patients list: video container -->
+  <div id="videoContainer">
+    <h3>Live Call</h3>
+    <div id="noObservation" style="padding: 15px; background: #f0f0f0; border: 1px solid #ccc; border-radius: 8px;">
+      <p><strong>Nothing is currently being observed.</strong><br />Click "View Meeting" to observe a current patient.</p>
+    </div>
+    <div class="video-wrapper" style="display: none;">
+      <video id="remoteVideo" autoplay playsinline></video>
+      <video id="localVideo" autoplay muted playsinline></video>
+    </div>
+    <div class="controls" style="display: none;">
+      <button id="btnVideo" class="control-btn btn-video on" title="Toggle Video"></button>
+      <button id="btnMic" class="control-btn btn-mic on" title="Toggle Microphone"></button>
+      <button id="btnSpeaker" class="control-btn btn-speaker on" title="Toggle Speaker"></button>
+      <button id="endBtn" class="control-btn btn-end" title="End Call"></button>
     </div>
   </div>
+
   <script>
     const form = document.getElementById('appointmentForm');
     const appointmentList = document.getElementById('appointmentList');
     const roomSelect = document.getElementById('room');
     const mrnField = document.getElementById('mrn');
 
-    // Generate MRN on page load
     window.addEventListener('load', () => {
       mrnField.value = generateMRN();
     });
 
-    // Populate dropdown with available rooms
     const usedRooms = [...appointmentList.querySelectorAll('li')].map(li => li.getAttribute('data-room'));
     for (let i = 401; i <= 430; i++) {
       const roomLabel = `N${i}`;
@@ -131,7 +134,6 @@
 
     form.addEventListener('submit', function(e) {
       e.preventDefault();
-
       const room = roomSelect.value;
       const patient = document.getElementById('patientName').value;
       const mrn = mrnField.value;
@@ -163,6 +165,11 @@
     function toggleVideoBox(roomId) {
       const box = document.getElementById(`video-${roomId}`);
       box.style.display = box.style.display === 'none' ? 'block' : 'none';
+
+      // When a meeting is viewed, hide the noObservation box and show the video elements
+      document.getElementById('noObservation').style.display = 'none';
+      document.querySelector('.video-wrapper').style.display = 'flex';
+      document.querySelector('.controls').style.display = 'flex';
     }
   </script>
 </body>
