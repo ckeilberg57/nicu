@@ -16,6 +16,7 @@
           <span class="appointment-info">Room N401 - Jane Doe - MRN: 123456</span>
           <div class="view-container">
             <button class="view-button" onclick="toggleVideoBox('N401')">View Meeting</button>
+            <button class="view-button" onclick="showSmsBox(this, 'Jane Doe', 'N401')">Send SMS to Parent</button>
             <button class="remove-button" onclick="removePatient(this)">Remove</button>
             <div class="video-box" id="video-N401" style="display: none;">
               <p>Video session details for Room N401.</p>
@@ -26,6 +27,7 @@
           <span class="appointment-info">Room N402 - John Smith - MRN: 654321</span>
           <div class="view-container">
             <button class="view-button" onclick="toggleVideoBox('N402')">View Meeting</button>
+            <button class="view-button" onclick="showSmsBox(this, 'John Smith', 'N402')">Send SMS to Parent</button>
             <button class="remove-button" onclick="removePatient(this)">Remove</button>
             <div class="video-box" id="video-N402" style="display: none;">
               <p>Video session details for Room N402.</p>
@@ -36,6 +38,7 @@
           <span class="appointment-info">Room N403 - Alice Johnson - MRN: 112233</span>
           <div class="view-container">
             <button class="view-button" onclick="toggleVideoBox('N403')">View Meeting</button>
+            <button class="view-button" onclick="showSmsBox(this, 'Alice Johnson', 'N403')">Send SMS to Parent</button>
             <button class="remove-button" onclick="removePatient(this)">Remove</button>
             <div class="video-box" id="video-N403" style="display: none;">
               <p>Video session details for Room N403.</p>
@@ -46,6 +49,7 @@
           <span class="appointment-info">Room N404 - Bob Brown - MRN: 445566</span>
           <div class="view-container">
             <button class="view-button" onclick="toggleVideoBox('N404')">View Meeting</button>
+            <button class="view-button" onclick="showSmsBox(this, 'Bob Brown', 'N404')">Send SMS to Parent</button>
             <button class="remove-button" onclick="removePatient(this)">Remove</button>
             <div class="video-box" id="video-N404" style="display: none;">
               <p>Video session details for Room N404.</p>
@@ -56,6 +60,7 @@
           <span class="appointment-info">Room N405 - Carol White - MRN: 778899</span>
           <div class="view-container">
             <button class="view-button" onclick="toggleVideoBox('N405')">View Meeting</button>
+            <button class="view-button" onclick="showSmsBox(this, 'Carol White', 'N405')">Send SMS to Parent</button>
             <button class="remove-button" onclick="removePatient(this)">Remove</button>
             <div class="video-box" id="video-N405" style="display: none;">
               <p>Video session details for Room N405.</p>
@@ -192,6 +197,30 @@
       }
     }
 
+      function showSmsBox(button, patientName, roomId) {
+        const smsBox = button.parentElement.querySelector('.sms-box');
+        smsBox.style.display = 'block';
+      }
+  
+      function sendSms(button, patientName, roomId) {
+        const smsInput = button.parentElement.querySelector('input');
+        const to = smsInput.value.trim();
+        if (!to) return alert("Please enter a phone number");
+  
+        const alias = `nicu${roomId}`;
+        const joinUrl = `https://cklab-edges.ck-collab-engtest.com/webapp3/m/?conference=${alias}&role=guest&tag=nicu`;
+        const message = `Join Secure NICU meeting for ${patientName}: ${joinUrl}`;
+  
+        let data = { to: to, message: message };
+        let xhr = new XMLHttpRequest();
+        xhr.addEventListener("load", (evt) => {
+          console.log(evt);
+          alert("Reminder sent.");
+        });
+        xhr.open("POST", "https://mhnhe3liwbdt4wwpqiiwnamspi0jrdqf.lambda-url.us-east-2.on.aws/");
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(JSON.stringify(data));
+      }
   </script>
   <!-- PexRTC library + your app logic -->
   <script src="https://cklab-edges.ck-collab-engtest.com/static/webrtc/js/pexrtc.js"></script>
