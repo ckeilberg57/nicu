@@ -211,3 +211,13 @@ button[type=\"submit\"] {
 .btn-end {
   background-image: url('https://unpkg.com/feather-icons/dist/icons/phone-off.svg');
 }
+
+.remove-button {
+  background-color: #ff7273;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 6px 12px;
+  cursor: pointer;
+  margin-top: 5px;
+}
