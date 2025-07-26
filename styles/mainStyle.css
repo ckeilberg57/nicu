@@ -242,7 +242,7 @@ button[type=\"submit\"] {
 .sms-box button:not(.close-sms) {
   padding: 6px 12px;
   border-radius: 4px;
-  background-color: #0eb3c7;
+  background-color: #0a2136;
   color: white;
   border: none;
   cursor: pointer;
@@ -275,4 +275,8 @@ button[type=\"submit\"] {
   .close-sms:focus {
     outline: none;
     box-shadow: none;
+  }
+
+  .view-button:contains("Send SMS to Parent") {
+    background-color: #0a2136;
   }
