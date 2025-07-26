@@ -231,6 +231,7 @@ button[type=\"submit\"] {
   display: flex;
   gap: 8px;
   margin-top: 8px;
+  position: relative;
 }
 .sms-box input {
   flex: 1;
@@ -255,4 +256,14 @@ button[type=\"submit\"] {
     padding: 6px 12px;
     border-radius: 5px;
     text-decoration: none;
+  }
+  .close-sms {
+    position: absolute;
+    top: 2px;
+    right: 4px;
+    background: transparent;
+    border: none;
+    font-size: 18px;
+    color: #666;
+    cursor: pointer;
   }
