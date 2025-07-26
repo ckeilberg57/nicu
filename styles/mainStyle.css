@@ -276,7 +276,3 @@ button[type=\"submit\"] {
     outline: none;
     box-shadow: none;
   }
-
-  .view-button:contains("Send SMS to Parent") {
-    background-color: #0a2136;
-  }
