@@ -276,3 +276,8 @@ button[type=\"submit\"] {
     outline: none;
     box-shadow: none;
   }
+
+  .sms-button {
+    background-color: #0a2136 !important;
+  }
+
