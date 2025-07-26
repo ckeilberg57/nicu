@@ -260,10 +260,19 @@ button[type=\"submit\"] {
   .close-sms {
     position: absolute;
     top: 2px;
-    right: 4px;
+    right: 6px;
     background: transparent;
     border: none;
     font-size: 18px;
-    color: #666;
+    color: red;
+    font-weight: bold;
     cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    outline: none;
+  }
+  
+  .close-sms:focus {
+    outline: none;
+    box-shadow: none;
   }
