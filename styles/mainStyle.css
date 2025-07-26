@@ -225,7 +225,7 @@ button[type=\"submit\"] {
 /* SMS section */
 .sms-box {
   background: #f9f9f9;
-  padding: 8px;
+  padding: 15px;
   border: 1px solid #ccc;
   border-radius: 8px;
   display: flex;
@@ -236,7 +236,7 @@ button[type=\"submit\"] {
 .sms-box input {
   flex: 1;
   padding: 6px;
-  border-radius: 4px;
+  border-radius: 6px;
   border: 1px solid #bbb;
 }
 .sms-box button:not(.close-sms) {
@@ -260,12 +260,12 @@ button[type=\"submit\"] {
 
   .close-sms {
     position: absolute;
-    top: 4px;
+    top: 15px;
     right: 6px;
     background: none;
     border: none;
     color: red;
-    font-size: 20px;
+    font-size: 30px;
     font-weight: bold;
     cursor: pointer;
     padding: 0;
