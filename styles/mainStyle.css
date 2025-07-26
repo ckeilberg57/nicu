@@ -223,18 +223,30 @@ button[type=\"submit\"] {
 }
 
 /* SMS section */
-  .sms-box {
-    display: none;
-    margin-top: 10px;
-    background: #f9f9f9;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-  }
-  .sms-box input[type="text"] {
-    width: calc(100% - 120px);
-    margin-right: 5px;
-  }
+.sms-box {
+  background: #f9f9f9;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+.sms-box input {
+  flex: 1;
+  padding: 6px;
+  border-radius: 4px;
+  border: 1px solid #bbb;
+}
+.sms-box button {
+  padding: 6px 12px;
+  border-radius: 4px;
+  background-color: #0eb3c7;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
   .sms-link {
     display: inline-block;
     margin-top: 5px;
