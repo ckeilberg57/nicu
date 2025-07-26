@@ -18,6 +18,7 @@
             <button class="view-button" onclick="toggleVideoBox('N401')">View Meeting</button>
             <button class="view-button" onclick="showSmsBox(this, 'Jane Doe', 'N401')">Send SMS to Parent</button>
             <div class="sms-box" style="display: none; margin-top: 10px;">
+              <button class="close-sms" onclick="closeSmsBox(this)">×</button>
               <input type="text" placeholder="Enter phone number" />
               <button onclick="sendSms(this, 'Jane Doe', 'N401')">Send</button>
             </div>
@@ -33,6 +34,7 @@
             <button class="view-button" onclick="toggleVideoBox('N402')">View Meeting</button>
             <button class="view-button" onclick="showSmsBox(this, 'John Smith', 'N402')">Send SMS to Parent</button>
             <div class="sms-box" style="display: none; margin-top: 10px;">
+              <button class="close-sms" onclick="closeSmsBox(this)">×</button>
               <input type="text" placeholder="Enter phone number" />
               <button onclick="sendSms(this, 'John Smith', 'N402')">Send</button>
             </div>
@@ -48,6 +50,7 @@
             <button class="view-button" onclick="toggleVideoBox('N403')">View Meeting</button>
             <button class="view-button" onclick="showSmsBox(this, 'Alice Johnson', 'N403')">Send SMS to Parent</button>
             <div class="sms-box" style="display: none; margin-top: 10px;">
+              <button class="close-sms" onclick="closeSmsBox(this)">×</button>
               <input type="text" placeholder="Enter phone number" />
               <button onclick="sendSms(this, 'Alice Johnson', 'N403')">Send</button>
             </div>
@@ -63,6 +66,7 @@
             <button class="view-button" onclick="toggleVideoBox('N404')">View Meeting</button>
             <button class="view-button" onclick="showSmsBox(this, 'Bob Brown', 'N404')">Send SMS to Parent</button>
             <div class="sms-box" style="display: none; margin-top: 10px;">
+              <button class="close-sms" onclick="closeSmsBox(this)">×</button>
               <input type="text" placeholder="Enter phone number" />
               <button onclick="sendSms(this, 'Bob Brown', 'N404')">Send</button>
             </div>
@@ -78,6 +82,7 @@
             <button class="view-button" onclick="toggleVideoBox('N405')">View Meeting</button>
             <button class="view-button" onclick="showSmsBox(this, 'Carol White', 'N405')">Send SMS to Parent</button>
             <div class="sms-box" style="display: none; margin-top: 10px;">
+              <button class="close-sms" onclick="closeSmsBox(this)">×</button>
               <input type="text" placeholder="Enter phone number" />
               <button onclick="sendSms(this, 'Carol White', 'N405')">Send</button>
             </div>
@@ -240,6 +245,11 @@
         xhr.open("POST", "https://mhnhe3liwbdt4wwpqiiwnamspi0jrdqf.lambda-url.us-east-2.on.aws/");
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.send(JSON.stringify(data));
+      }
+
+      function closeSmsBox(button) {
+        const smsBox = button.closest('.sms-box');
+        if (smsBox) smsBox.style.display = 'none';
       }
   </script>
   <!-- PexRTC library + your app logic -->
